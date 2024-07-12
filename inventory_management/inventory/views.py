@@ -56,7 +56,6 @@ class EditItem(LoginRequiredMixin, UpdateView):
 
 class DeleteItem(LoginRequiredMixin, DeleteView):
     model = InventoryItem
-    form_class = InventoryItemForm
     template_name ='inventory/delete_item.html'
     success_url = reverse_lazy('dashboard')
     context_object_name ='item'
