@@ -11,6 +11,12 @@
         <li class="nav-item">
         <a class="nav-link" href="#">{{user.username}}</a>                
         </li>
+         <li>
+          <form action="{% url 'search'%}" method="GET" class="d-flex" role="search">
+            <input class="form-control me-2" type="text" name="query" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </li> 
         <li class="nav-item ">
                         <form action="{% url 'logout' %}" method="post">
                             {% csrf_token %}
