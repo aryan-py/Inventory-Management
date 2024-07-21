@@ -6,7 +6,17 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import UserRegisterForm, InventoryItemForm
 from .models import InventoryItem, Category
 
-
+class search(LoginRequiredMixin, View):
+    def get(self,request):
+        if request.method == 'GET':
+            query =request.GET.get('query')
+            if query:
+                items = InventoryItem.objects.filter(name=query)
+                return render(request, 'inventory/search.html', {'items':items})
+            else:
+                print("No information to show")
+                return render(request, 'inventory/search.html', {})
+                
 class Index(TemplateView):
     template_name = 'inventory/index.html'
 
