@@ -7,15 +7,13 @@ from .forms import UserRegisterForm, InventoryItemForm
 from .models import InventoryItem, Category
 
 class search(LoginRequiredMixin, View):
-    def get(self,request):
-        if request.method == 'GET':
-            query =request.GET.get('query')
-            if query:
-                items = InventoryItem.objects.filter(name=query)
-                return render(request, 'inventory/search.html', {'items':items})
-            else:
-                print("No information to show")
-                return render(request, 'inventory/search.html', {})
+ def get(self, request):
+        query = request.GET.get('query', '')
+        if query:
+            items = InventoryItem.objects.filter(name__icontains=query)
+        else:
+            items = InventoryItem.objects.all()
+        return render(request, 'inventory/search.html', {'items': items})
                 
 class Index(TemplateView):
     template_name = 'inventory/index.html'
